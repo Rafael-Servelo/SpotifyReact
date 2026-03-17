@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light dark;
+  font-family:
+    Helvetica Neue,
+    helvetica,
+    arial,
+    Hiragino Sans,
+    Hiragino Kaku Gothic ProN,
+    Meiryo,
+    MS Gothic;
+}
