@@ -53,7 +53,7 @@ export default function Header() {
                   children={
                     <Search
                       className="text-zinc-400 group-focus-within:text-white transition-colors"
-                      size={20}
+                      size={25}
                     />
                   }
                   text="Buscar"

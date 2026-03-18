@@ -4,12 +4,21 @@ import {
   SquareArrowRight,
   Library,
   Maximize2,
+  Search,
 } from "lucide-react";
 import TooltipComponent from "./assets/Tooltip";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function Body() {
   const [showLib, setLib] = useState<boolean>(true);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isSearchOpen]);
 
   return (
     <>
@@ -18,8 +27,8 @@ export default function Body() {
           <div
             className={
               showLib
-                ? "w-1/3 max-w-112.5 bg-zinc-900 rounded-md p-6"
-                : "w-15 max-w-112.5 bg-zinc-900 rounded-md p-6"
+                ? "w-1/3 max-w-112.5 bg-zinc-900 rounded-md p-6 flex flex-col gap-4"
+                : "w-18 max-w-112.5 bg-zinc-900 rounded-md p-6"
             }
           >
             <div className="flex flex-row justify-between">
@@ -62,15 +71,18 @@ export default function Body() {
                 <div className="flex gap-2">
                   <TooltipComponent
                     children={
-                      <div className="w-8 h-8 bg-zinc-700 hover:bg-zinc-600 rounded-full flex items-center justify-center cursor-pointer">
-                        <Plus />
+                      <div className="px-3 py-1 bg-zinc-800 hover:bg-zinc-700 rounded-full flex items-center justify-center cursor-pointer">
+                        <div className="flex gap-1 items-center">
+                          <Plus className="text-zinc-400" />
+                          <span className="text-sm">Criar</span>
+                        </div>
                       </div>
                     }
                     text="Crie uma playlist, pasta ou Jam"
                   />
                   <TooltipComponent
                     children={
-                      <div className="w-8 h-8 hover:bg-zinc-600 rounded-full flex items-center justify-center transition-all cursor-pointer">
+                      <div className="w-8 h-8 hover:bg-zinc-700 rounded-full flex items-center justify-center transition-all cursor-pointer">
                         <Maximize2 size={15} />
                       </div>
                     }
@@ -81,6 +93,57 @@ export default function Body() {
                 <></>
               )}
             </div>
+            {showLib ? (
+              <div className="flex flex-col gap-2">
+                <div className="tags flex items-center gap-2">
+                  <div className="px-3 py-1.5 bg-zinc-800 w-max rounded-full text-sm cursor-pointer hover:bg-zinc-700 ">
+                    Playlists
+                  </div>
+                  <div className="px-3 py-1.5 bg-zinc-800 w-max rounded-full text-sm cursor-pointer hover:bg-zinc-700 ">
+                    Podcasts
+                  </div>
+                  <div className="px-3 py-1.5 bg-zinc-800 w-max rounded-full text-sm cursor-pointer hover:bg-zinc-700 ">
+                    Álbuns
+                  </div>
+                  <div className="px-3 py-1.5 bg-zinc-800 w-max rounded-full text-sm cursor-pointer hover:bg-zinc-700 ">
+                    Artistas
+                  </div>
+                </div>
+                <div
+                  className={`flex items-center gap-2 rounded-md transition-all duration-300 w-max ${
+                    isSearchOpen
+                      ? "bg-zinc-800 p-1" // Quando aberto, expande
+                      : "bg-transparent p-2" // Quando fechado, fica transparente e curto
+                  }`}
+                >
+                  <button
+                    onClick={() => setIsSearchOpen(!isSearchOpen)}
+                    className="hover:bg-zinc-800 p-2 rounded-full transition-colors"
+                  >
+                    <Search
+                      className={`${isSearchOpen ? "text-white" : "text-zinc-400"} cursor-pointer hover:text-white`}
+                      size={20}
+                    />
+                  </button>
+
+                  <input
+                    ref={searchInputRef} // 4. Conecte a referência aqui
+                    type="text"
+                    placeholder="Buscar em Sua Biblioteca..."
+                    className={`bg-transparent outline-none text-sm transition-all duration-300 placeholder:text-zinc-500 ${
+                      isSearchOpen
+                        ? "w-full opacity-100 block"
+                        : "w-0 opacity-0 hidden"
+                    }`}
+                    onBlur={(e) => {
+                      if (e.target.value === "") setIsSearchOpen(false);
+                    }}
+                  />
+                </div>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="grow bg-zinc-900 rounded-md">Centro</div>
           <div className="w-1/3 max-w-112.5 bg-zinc-900 rounded-md">

@@ -12,13 +12,45 @@ import {
   SkipBack,
   SkipForward,
   Volume2,
+  Volume1,
+  Volume,
+  VolumeOff,
 } from "lucide-react";
 import { useState } from "react";
 import TooltipComponent from "./assets/Tooltip";
+import ProgressBar from "./RangerBar";
+import Slider from "./Slider";
 
 export default function Footer() {
   const [playMusic, setPlay] = useState<boolean>(false);
   const [repeatMusic, setRepeat] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = useState(85); // 1:25 em segundos
+  const duration = 225; // 3:45 em segundos
+  const [mude, setMude] = useState(false);
+  const [volume, setVolume] = useState(50);
+
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = parseInt(e.target.value);
+    setCurrentTime(newValue);
+    // Aqui depois você enviará o comando para a API: spotifyApi.seek(newValue * 1000)
+  };
+
+  const renderVolumeIcon = () => {
+    // Se estiver no mudo ou o volume for 0
+    if (mude || volume === 0) {
+      return <VolumeOff className="text-zinc-400 hover:text-white" size={20} />;
+    }
+    // Volume baixo
+    if (volume < 33) {
+      return <Volume className="text-zinc-400 hover:text-white" size={20} />;
+    }
+    // Volume médio
+    if (volume < 66) {
+      return <Volume1 className="text-zinc-400 hover:text-white" size={20} />;
+    }
+    // Volume alto
+    return <Volume2 className="text-zinc-400 hover:text-white" size={20} />;
+  };
 
   return (
     <>
@@ -69,14 +101,24 @@ export default function Footer() {
                 )}
               </div>
               {/* Controle de progresso */}
-              <div className="flex text-zinc-400 items-center gap-5">
-                <span className="text-sm">1:25</span>
-                <div className="group relative w-80 lg:w-180 h-3 rounded-full cursor-pointer">
-                  <div className="bg-white w-3 h-3 absolute z-30 rounded-full hidden group-hover:block left-1/2"></div>
-                  <div className="bg-white w-1/2 h-1 absolute z-20 rounded-full group-hover:bg-emerald-400 top-1"></div>
-                  <div className="bg-zinc-600 w-80 lg:w-180 h-1 absolute z-10 rounded-full top-1"></div>
+              <div className="flex text-zinc-400 items-center gap-5 w-full justify-center">
+                <span className="text-xs min-w-10 text-right">
+                  {Math.floor(currentTime / 60)}:
+                  {(currentTime % 60).toString().padStart(2, "0")}
+                </span>
+
+                <div className="w-80 lg:w-180">
+                  <ProgressBar
+                    value={currentTime}
+                    max={duration}
+                    onChange={handleSeek}
+                  />
                 </div>
-                <span className="text-sm">-3:45</span>
+
+                <span className="text-xs min-w-10">
+                  -{Math.floor((duration - currentTime) / 60)}:
+                  {((duration - currentTime) % 60).toString().padStart(2, "0")}
+                </span>
               </div>
             </div>
           </div>
@@ -84,39 +126,72 @@ export default function Footer() {
           <div className="w-1/3">
             <div className="flex items-center justify-end p-5 gap-5">
               <TooltipComponent
-                children={<MicVocal className="text-zinc-400 cursor-pointer" />}
+                children={
+                  <MicVocal
+                    size={18}
+                    className="text-zinc-400 cursor-pointer"
+                  />
+                }
                 text="Letra"
               />
               <TooltipComponent
-                children={<ListEnd className="text-zinc-400 cursor-pointer" />}
+                children={
+                  <ListEnd size={18} className="text-zinc-400 cursor-pointer" />
+                }
                 text="Fila"
               />
               <TooltipComponent
                 children={
-                  <Headphones className="text-zinc-400 cursor-pointer" />
+                  <Headphones
+                    size={18}
+                    className="text-zinc-400 cursor-pointer"
+                  />
                 }
                 text="Conectar a um dispositivo"
               />
-              <TooltipComponent
-                children={<Volume2 className="text-zinc-400 cursor-pointer" />}
-                text="Mudo"
-              />
 
               {/* Controle de Volume */}
-              <div className="group relative w-22 h-3 rounded-full cursor-pointer">
-                <div className="bg-white w-3 h-3 absolute z-30 rounded-full hidden group-hover:block left-17"></div>
-                <div className="bg-white w-18 h-1 absolute z-20 rounded-full group-hover:bg-emerald-400 top-1"></div>
-                <div className="bg-zinc-600 w-22 h-1 absolute z-10 rounded-full top-1"></div>
+              <div className="flex items-center gap-2">
+                <TooltipComponent
+                  text={mude || volume === 0 ? "Ativar som" : "Mudo"}
+                  children={
+                    <button
+                      onClick={() => setMude(!mude)}
+                      className="flex items-center justify-center w-5 h-5"
+                    >
+                      {renderVolumeIcon()}
+                    </button>
+                  }
+                />
+
+                {/* O Slider de Volume */}
+                <Slider
+                  value={mude ? 0 : volume}
+                  max={100}
+                  onChange={(val) => {
+                    setVolume(val);
+                    if (val > 0) setMude(false); // Desmuta automaticamente se arrastar o volume
+                  }}
+                  widthClass="w-24"
+                />
               </div>
 
               <TooltipComponent
                 children={
-                  <PictureInPicture2 className="text-zinc-400 cursor-pointer" />
+                  <PictureInPicture2
+                    size={18}
+                    className="text-zinc-400 cursor-pointer"
+                  />
                 }
                 text="Abrir miniplayer"
               />
               <TooltipComponent
-                children={<Maximize className="text-zinc-400 cursor-pointer" />}
+                children={
+                  <Maximize
+                    size={18}
+                    className="text-zinc-400 cursor-pointer"
+                  />
+                }
                 text="Entrar na tela cheia"
               />
             </div>
