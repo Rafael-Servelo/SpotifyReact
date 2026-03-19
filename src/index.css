@@ -11,3 +11,7 @@
     Meiryo,
     MS Gothic;
 }
+
+* {
+  user-select: none;
+}
