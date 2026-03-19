@@ -7,6 +7,8 @@ function Login() {
   const REDIRECT_URI = `${import.meta.env.VITE_BASE_URL}/callback`;
   const AUTH_URL = "https://accounts.spotify.com/authorize";
 
+  console.log(REDIRECT_URI);
+
   useEffect(() => {
     const token = localStorage.getItem("spotifyToken");
     if (token) {
