@@ -6,7 +6,7 @@ function Callback() {
     const code = params.get("code");
 
     if (code) {
-      fetch("http://127.0.0.1:3000/login", {
+      fetch("http://localhost:3000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code }),
@@ -17,7 +17,7 @@ function Callback() {
           localStorage.setItem("spotifyToken", data.access_token);
 
           // Redireciona para a home
-          window.location.href = "/home";
+          window.location.href = "/";
         })
         .catch((err) => console.error(err));
     }

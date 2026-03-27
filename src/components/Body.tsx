@@ -11,7 +11,7 @@ import {
   SquareArrowRight,
   Volume2,
 } from "lucide-react";
-import TooltipComponent from "./assets/Tooltip";
+import TooltipComponent from "../assets/Tooltip";
 import { useState, useRef, useEffect } from "react";
 import ItemList from "./ItemList";
 

@@ -1,11 +1,10 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // ou outro método de roteamento
+import { useEffect, useState } from "react";
 
 function Login() {
-  const navigate = useNavigate();
   const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
   const REDIRECT_URI = `${import.meta.env.VITE_BASE_URL}/callback`;
   const AUTH_URL = "https://accounts.spotify.com/authorize";
+  const [asLogged, setAsLogged] = useState<boolean>(false);
 
   console.log(REDIRECT_URI);
 
@@ -13,7 +12,9 @@ function Login() {
     const token = localStorage.getItem("spotifyToken");
     if (token) {
       // Usuário já está logado, redireciona para o home
-      navigate("/home");
+      setAsLogged(true);
+    } else {
+      setAsLogged(false);
     }
   }, []);
 
@@ -27,10 +28,13 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-zinc-950 text-white">
+    <div
+      className="flex items-center justify-center h-screen w-screen z-100 backdrop-blur-sm text-white fixed"
+      hidden={asLogged ?? false}
+    >
       <button
         onClick={login}
-        className="bg-green-500 px-6 py-3 rounded-lg text-lg font-bold"
+        className="bg-green-500 px-6 py-3 rounded-lg text-lg font-bold cursor-pointer hover:bg-green-400 active:bg-green-600 active:scale-95 transition-all"
       >
         Login com Spotify
       </button>

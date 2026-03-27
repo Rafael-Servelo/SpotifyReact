@@ -17,7 +17,7 @@ import {
   VolumeOff,
 } from "lucide-react";
 import { useState } from "react";
-import TooltipComponent from "./assets/Tooltip";
+import TooltipComponent from "../assets/Tooltip";
 import ProgressBar from "./RangerBar";
 import Slider from "./Slider";
 

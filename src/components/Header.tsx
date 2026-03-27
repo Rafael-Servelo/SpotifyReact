@@ -8,24 +8,30 @@ import {
   Loader2,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import logo from "../src/assets/Spotify_Primary_Logo_RGB_White.png";
-import TooltipComponent from "./assets/Tooltip";
+import logo from "@/assets/Spotify_Primary_Logo_RGB_White.png";
+import TooltipComponent from "../assets/Tooltip";
 import axios from "axios";
 
 export default function Header() {
-  const token = localStorage.getItem("spotifyToken");
   const [activeHome, setActiveHome] = useState<boolean>(false);
   const [user, setUser] = useState<object>({}) as any;
 
   useEffect(() => {
-    axios
-      .get("https://api.spotify.com/v1/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => setUser(res.data))
-      .catch(console.error);
+    const token = localStorage.getItem("spotifyToken");
+    if (token) {
+      // Usuário já está logado, redireciona para o home
+      axios
+        .get("https://api.spotify.com/v1/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => setUser(res.data))
+        .catch((_error) => {
+          localStorage.clear();
+          window.location.reload();
+        });
+    }
   }, []);
 
   return (
