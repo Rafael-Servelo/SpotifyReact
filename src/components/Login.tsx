@@ -6,10 +6,8 @@ function Login() {
   const AUTH_URL = "https://accounts.spotify.com/authorize";
   const [asLogged, setAsLogged] = useState<boolean>(false);
 
-  console.log(REDIRECT_URI);
-
   useEffect(() => {
-    const token = localStorage.getItem("spotifyToken");
+    const token = sessionStorage.getItem("spotifyToken");
     if (token) {
       // Usuário já está logado, redireciona para o home
       setAsLogged(true);
@@ -36,7 +34,7 @@ function Login() {
         onClick={login}
         className="bg-green-500 px-6 py-3 rounded-lg text-lg font-bold cursor-pointer hover:bg-green-400 active:bg-green-600 active:scale-95 transition-all"
       >
-        Login com Spotify
+        Conectar com Spotify
       </button>
     </div>
   );

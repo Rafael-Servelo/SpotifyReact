@@ -14,6 +14,7 @@ import {
 import TooltipComponent from "../assets/Tooltip";
 import { useState, useRef, useEffect } from "react";
 import ItemList from "./ItemList";
+import logo from "@/assets/Spotify_Primary_Logo_RGB_White.png";
 
 export default function Body() {
   const [showLib, setLib] = useState<boolean>(true);
@@ -50,7 +51,7 @@ export default function Body() {
     group-hover:visible group-hover:opacity-100 group-hover:translate-x-0 
     duration-300 ease-out w-0 group-hover:w-auto transition-all"
                       />
-                      <strong className="text-xl">Sua Biblioteca</strong>
+                      <strong className="text-md">Sua Biblioteca</strong>
                     </div>
                   }
                   text="Ocutar Sua Biblioteca"
@@ -253,7 +254,61 @@ export default function Body() {
           </div>
           <div className="grow bg-zinc-900 rounded-md">Centro</div>
           <div className="w-1/3 max-w-112.5 bg-zinc-900 rounded-md">
-            Lat. Dir
+            <div className="flex flex-col gap-4 p-4">
+              <div className="group flex gap-2 cursor-pointer">
+                <SquareArrowRight
+                  className="text-zinc-400 hover:text-white invisible opacity-0 -translate-x-5 
+    group-hover:visible group-hover:opacity-100 group-hover:translate-x-0 
+    duration-300 ease-out w-0 group-hover:w-auto transition-all"
+                />
+                <strong className="text-md">Album de exemplo</strong>
+              </div>
+              <div>
+                <div className="lg:w-full w-50 max-w-max h-max rounded-xl overflow-hidden">
+                  <img src={logo} alt="logo" className=" bg-red-500 min-w-50" />
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <strong className="text-3xl">S.P.O.T.I.F.Y</strong>
+                <span className="text-zinc-400 text-md">Spotify</span>
+              </div>
+              <div className="flex flex-col gap-4">
+                <span>Videoclipes relacionados</span>
+                <div className="flex flex-row gap-4">
+                  <div className="flex flex-col gap-1">
+                    <div className="w-50 h-30 bg-amber-300 rounded-lg"></div>
+                    <span>Exmeplo 1</span>
+                    <span className="text-zinc-400 text-sm">Spotify</span>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <div className="w-50 h-30 bg-sky-400 rounded-lg"></div>
+                    <span>Exmeplo 2</span>
+                    <span className="text-zinc-400 text-sm">Spotify</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div className="bg-zinc-800 p-4 flex flex-col gap-4 rounded-xl">
+                  <div className="flex justify-between items-center">
+                    <strong className="">Créditos</strong>
+                    <strong className="text-zinc-400 text-sm">
+                      Mostrar tudo
+                    </strong>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="flex flex-col">
+                      <span>Spotify</span>
+                      <span className="text-sm text-zinc-400">
+                        Artista Principal
+                      </span>
+                    </div>
+                    <div>Seguir</div>
+                  </div>
+                </div>
+              </div>
+              <div>A seguir</div>
+            </div>
           </div>
         </div>
       </main>

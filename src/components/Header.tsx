@@ -17,20 +17,34 @@ export default function Header() {
   const [user, setUser] = useState<object>({}) as any;
 
   useEffect(() => {
-    const token = localStorage.getItem("spotifyToken");
+    const token = sessionStorage.getItem("spotifyToken") as any;
+    const userData = sessionStorage.getItem("user") as any;
     if (token) {
-      // Usuário já está logado, redireciona para o home
-      axios
-        .get("https://api.spotify.com/v1/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => setUser(res.data))
-        .catch((_error) => {
-          localStorage.clear();
-          window.location.reload();
-        });
+      // Usuário já está logado
+      if (JSON.stringify(user) === "{}") {
+        if (userData?.length > 0) {
+          setUser(JSON.parse(userData));
+        } else {
+          axios
+            .get("https://api.spotify.com/v1/me", {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((res) => {
+              setUser(res.data);
+              sessionStorage.setItem("user", JSON.stringify(res.data));
+            })
+            .catch((_error) => {
+              sessionStorage.clear();
+              window.location.reload();
+            });
+        }
+      } else {
+        console.log("test1");
+        console.log(user);
+        return;
+      }
     }
   }, []);
 
@@ -150,7 +164,6 @@ export default function Header() {
                     {user && user.images && user.images.length > 0 ? (
                       <img
                         src={user.images[0].url} // normalmente a primeira imagem
-                        alt="Perfil"
                         className="w-8 h-8 rounded-full"
                       />
                     ) : (

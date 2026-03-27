@@ -14,7 +14,7 @@ function Callback() {
         .then((res) => res.json())
         .then((data) => {
           console.log("Access token:", data.access_token);
-          localStorage.setItem("spotifyToken", data.access_token);
+          sessionStorage.setItem("spotifyToken", data.access_token);
 
           // Redireciona para a home
           window.location.href = "/";
