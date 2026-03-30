@@ -292,22 +292,64 @@ export default function Body() {
                 <div className="bg-zinc-800 p-4 flex flex-col gap-4 rounded-xl">
                   <div className="flex justify-between items-center">
                     <strong className="">Créditos</strong>
-                    <strong className="text-zinc-400 text-sm">
-                      Mostrar tudo
-                    </strong>
+                    <button className="cursor-pointer hover:scale-105 active:scale-95">
+                      <strong className="text-zinc-400 text-sm hover:underline hover:text-white active:text-zinc-400">
+                        Mostrar tudo
+                      </strong>
+                    </button>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <div className="flex flex-col">
-                      <span>Spotify</span>
-                      <span className="text-sm text-zinc-400">
-                        Artista Principal
-                      </span>
+                  <div className="flex flex-col gap-2">
+                    <div className="group flex justify-between items-center w-full cursor-pointer hover:bg-zinc-700 p-2 rounded-sm">
+                      <div className="flex flex-col">
+                        <span>Spotify</span>
+                        <span className="text-sm text-zinc-400">
+                          Artista Principal
+                        </span>
+                      </div>
+                      <div>
+                        <button className="bg-zinc-900 px-3 py-1 rounded-full outline outline-zinc-500 text-sm cursor-pointer hover:scale-105 hover:outline-white hover:bg-zinc-700">
+                          <strong>Seguir</strong>
+                        </button>
+                      </div>
                     </div>
-                    <div>Seguir</div>
+                    <div className="flex justify-between items-center w-full p-2">
+                      <div className="flex flex-col">
+                        <span>Rafael Servelo</span>
+                        <span className="text-sm text-zinc-400">Autores</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div>A seguir</div>
+              <div>
+                <div className="bg-zinc-800 p-4 flex flex-col gap-4 rounded-xl">
+                  <div className="flex justify-between items-center">
+                    <strong className="">A seguir</strong>
+                    <button className="cursor-pointer hover:scale-105 active:scale-95">
+                      <strong className="text-zinc-400 text-sm hover:underline hover:text-white active:text-zinc-400">
+                        Abrir fila
+                      </strong>
+                    </button>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <div className="group flex justify-between items-center w-full cursor-pointer hover:bg-zinc-700 p-2 rounded-sm">
+                      <div className="flex flex-col">
+                        <span>Spotify</span>
+                        <span className="text-sm text-zinc-400">
+                          Artista Principal
+                        </span>
+                      </div>
+                      <div>
+                        <button className="hover:scale-105 cursor-pointer">
+                          <strong className="hidden group-hover:block text-zinc-400 hover:text-white">
+                            ...
+                          </strong>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
