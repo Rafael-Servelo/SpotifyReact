@@ -5,6 +5,7 @@ import {
   List,
   Maximize2,
   Pin,
+  Play,
   Plus,
   Search,
   SquareArrowLeft,
@@ -332,12 +333,22 @@ export default function Body() {
                     </button>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <div className="group flex justify-between items-center w-full cursor-pointer hover:bg-zinc-700 p-2 rounded-sm">
-                      <div className="flex flex-col">
-                        <span>Spotify</span>
-                        <span className="text-sm text-zinc-400">
-                          Artista Principal
-                        </span>
+                    <div className="group flex justify-between items-center w-full cursor-pointer hover:bg-zinc-700 p-2 rounded-sm transition-all">
+                      <div className="flex flex-row items-center gap-4">
+                        <div>
+                          <div className="w-20 h-20 relative rounded-md overflow-hidden">
+                            <div className="w-full h-full bg-orange-500 absolute"></div>
+                            <div className="w-full h-full absolute backdrop-blur-xs backdrop-brightness-75 items-center justify-center hidden group-hover:flex">
+                              <Play className="fill-current"></Play>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex flex-col">
+                          <span>Spotify</span>
+                          <span className="text-sm text-zinc-400">
+                            Artista Principal
+                          </span>
+                        </div>
                       </div>
                       <div>
                         <button className="hover:scale-105 cursor-pointer">
