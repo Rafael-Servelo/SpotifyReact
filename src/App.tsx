@@ -12,7 +12,7 @@ function App() {
       <Route
         path="/"
         element={
-          <div className="flex flex-col min-h-screen bg-zinc-950">
+          <div className="flex flex-col bg-zinc-950 overflow-hidden">
             <Login />
             <Header />
             <Body />

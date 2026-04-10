@@ -30,13 +30,13 @@ export default function Body() {
 
   return (
     <>
-      <main className="grow px-2 flex flex-col">
-        <div className="flex gap-2 grow">
+      <main className="h-[calc(100vh-65px-96px)] px-2 flex flex-col">
+        <div className="flex gap-2 grow h-full">
           <div
             className={
               showLib
-                ? "w-1/3 max-w-112.5 bg-zinc-900 rounded-md p-6 flex flex-col gap-4"
-                : "w-18 max-w-112.5 bg-zinc-900 rounded-md p-6"
+                ? "w-1/3 max-w-112.5 bg-zinc-900 rounded-md p-6 flex flex-col gap-4 overflow-y-auto overflow-x-hidden"
+                : "w-18 max-w-112.5 bg-zinc-900 rounded-md p-6 overflow-y-auto overflow-x-hidden"
             }
           >
             <div className="flex flex-row justify-between">
@@ -253,8 +253,10 @@ export default function Body() {
               <></>
             )}
           </div>
-          <div className="grow bg-zinc-900 rounded-md">Centro</div>
-          <div className="w-1/3 max-w-112.5 bg-zinc-900 rounded-md">
+          <div className="grow bg-zinc-900 rounded-md overflow-y-auto overflow-x-hidden">
+            Centro
+          </div>
+          <div className="w-1/3 max-w-112.5 bg-zinc-900 rounded-md grow overflow-y-auto overflow-x-hidden">
             <div className="flex flex-col gap-4 p-4">
               <div className="group flex gap-2 cursor-pointer">
                 <SquareArrowRight
